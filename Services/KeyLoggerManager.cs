@@ -38,6 +38,9 @@ namespace YMH219_KeyEventLogger.Services
 
         public List<KeyValuePair<string, int>> GetTopKeys(int topCount = 5)
         {
+            if (topCount < 0)
+                throw new ArgumentOutOfRangeException(nameof(topCount), "Sayı negatif olamaz.");
+
             return _entries
                 .GroupBy(entry => entry.KeyName)
                 .OrderByDescending(group => group.Count())

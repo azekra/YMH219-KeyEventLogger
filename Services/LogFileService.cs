@@ -16,6 +16,9 @@ namespace YMH219_KeyEventLogger.Services
             if (logList.Count == 0)
                 throw new InvalidOperationException("Kaydedilecek herhangi bir tuş kaydı bulunmamaktadır.");
 
+            if (logList.Any(entry => entry is null))
+                throw new ArgumentException("Kayıt listesi boş kayıt içeremez.", nameof(entries));
+
             using var writer = new StreamWriter(filePath, append: false, encoding: Encoding.UTF8);
 
             writer.WriteLine("=== YMH219 Key Event Logger - Kayıt Dosyası ===");
